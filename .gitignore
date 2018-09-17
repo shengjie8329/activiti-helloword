@@ -1,0 +1,26 @@
+target
+.DS_Store
+# Eclipse
+# Eclipse Project files
+.classpath
+.project
+.settings/
+.springBeans
+.externalToolBuilders
+
+# Intellij IDEA
+.idea/
+build/
+.gradle/
+gradle/
+*.ipr
+*.iws
+*.iml
+*.bak
+
+nohup.out
+logs
+hs_err*
+.tags*
+project-init-shell
+/target
