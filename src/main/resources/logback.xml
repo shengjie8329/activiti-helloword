@@ -7,7 +7,7 @@
 		</encoder>
 	</appender>
 	<logger name="com.imooc" level="DEBUG"/>
-	<root level="ERROR">
+	<root level="INFO">
 		<appender-ref ref="stdout"/>
 	</root>
 </configuration>

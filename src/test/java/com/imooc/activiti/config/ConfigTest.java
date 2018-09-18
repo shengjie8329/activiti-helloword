@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ConfigTest {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(DemoMain.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(ConfigTest.class);
 
     @Test
     public void testConfig1(){
