@@ -7,6 +7,7 @@
         <property name="jdbcDriver" value="org.h2.Driver" />
         <property name="jdbcUsername" value="sa" />
         <property name="jdbcPassword" value="" />
+        <property name="commandInvoker" ref="commandInvoker" />
         <!--
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/activiti6unit?useUnicode=true&amp;characterEncoding=utf-8" />
         <property name="jdbcDriver" value="com.mysql.jdbc.Driver" />
@@ -15,4 +16,5 @@
         <property name="databaseSchemaUpdate" value="true" />
         -->
     </bean>
+    <bean id="commandInvoker" class="com.imooc.activiti.helloworld.interceptor.MDCCommandInvoker"/>
 </beans>
