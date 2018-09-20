@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+        <property name="jdbcUrl" value="jdbc:h2:mem:activiti;DB_CLOSE_DELAY=1000;MVCC=TRUE" />
+        <property name="jdbcDriver" value="org.h2.Driver" />
+        <property name="jdbcUsername" value="sa" />
+        <property name="jdbcPassword" value="" />
+        <!--
+        <property name="commandInvoker" ref="commandInvoker" />
+        -->
+        <!-- 打印出日志执行信息的树
+        -->
+        <property name="enableVerboseExecutionTreeLogging" value="true" />
+        <property name="customPreCommandInterceptors">
+            <list>
+                <bean class="com.imooc.activiti.helloworld.interceptor.DurationCommandInterceptor" />
+            </list>
+        </property>
+        <property name="customPostCommandInterceptors">
+            <list>
+                <bean class="com.imooc.activiti.helloworld.interceptor.DurationCommandInterceptor" />
+            </list>
+        </property>
+        <!--
+        一般情况下不要直接配置 commandInterceptors， 该属性是 整套 Interceptor流程的组合， pre+default+post+Invoker, 直接配置该属性会引起流程的混乱
+        <property name="commandInterceptors" />
+        -->
+    </bean>
+    <bean id="commandInvoker" class="com.imooc.activiti.helloworld.interceptor.MDCCommandInvoker"/>
+</beans>

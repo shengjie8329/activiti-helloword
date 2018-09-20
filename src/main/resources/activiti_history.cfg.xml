@@ -9,6 +9,21 @@
         <property name="jdbcPassword" value="" />
         <property name="commandInvoker" ref="commandInvoker" />
         <!--
+        配置成full，除了 audit 所有的内容外，historicDetails内还会有所有流程变量和表单变量的历史版本信息
+        -->
+        <property name="history" value="full" />
+        <!-- 配置成 audit, 会记录 historicActivityInstances，historicVariableInstances，historicTaskInstances，historicDetailsForm，historicDetails
+        但是 historicDetailsForm 和 historicDetails 的内容是一样的
+        <property name="history" value="audit" />
+        -->
+        <!-- 配置成 activity,会记录 节点的状态 historicActivityInstance 和  流程变量实例 historicVariableInstance
+        <property name="history" value="activity" />
+        -->
+
+        <!-- 如果配置成none , 则任何history信息都不能获取
+        <property name="history" value="none" />
+        -->
+        <!--
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/activiti6unit?useUnicode=true&amp;characterEncoding=utf-8" />
         <property name="jdbcDriver" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUsername" value="root" />
