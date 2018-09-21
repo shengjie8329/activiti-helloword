@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+    <context:property-placeholder  location="classpath:config.properties" />
+    <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+        <property name="dataSource" ref="dataSource" />
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="databaseSchemaUpdate" value="true" />
+        <!--
+        <property name="commandInvoker" ref="commandInvoker" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/activiti6unit?useUnicode=true&amp;characterEncoding=utf-8" />
+        <property name="jdbcDriver" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUsername" value="root" />
+        <property name="jdbcPassword" value="pass" />
+        <property name="databaseSchemaUpdate" value="true" />
+        -->
+    </bean>
+    <bean id="commandInvoker" class="com.imooc.activiti.helloworld.interceptor.MDCCommandInvoker"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <!-- 基本属性 url、user、password -->
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${jdbc_url}" />
+        <property name="username" value="${jdbc_username}" />
+        <property name="password" value="${jdbc_password}" />
+        <property name="maxActive" value="10" />
+        <property name="initialSize" value="1" />
+        <property name="filters" value="stat,slf4j" />
+    </bean>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- 通过ProcessEngineFactoryBean，基于processEngineConfiguration 来创建一个processEngine  -->
+    <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" >
+        <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+    </bean>
+    <!-- 通过工厂方法来获取 Service -->
+    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+    <bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
+    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+
+    <bean id="activitiRule" class="org.activiti.engine.test.ActivitiRule">
+        <property name="processEngine" ref="processEngine"/>
+    </bean>
+    <bean id="helloBean" class="com.imooc.activiti.helloworld.delegate.HelloBean"/>
+</beans>
