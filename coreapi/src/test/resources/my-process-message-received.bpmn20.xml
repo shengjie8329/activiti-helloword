@@ -4,14 +4,22 @@
 	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
 	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
 	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-
+	<!-- 定义message -->
+	<message id="messageStart" name="my-message" />
 	<process id="my-process">
 
 		<startEvent id="start" />
-		<sequenceFlow id="flow1" sourceRef="start" targetRef="someTask" />
-		
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="message-received" />
+
+		<!--
 		<userTask id="someTask" name="Activiti is awesome!" />
-		<sequenceFlow id="flow2" sourceRef="someTask" targetRef="end" />
+		-->
+		<!-- 定义一个捕获事件 -->
+		<intermediateCatchEvent id="message-received">
+			<!-- message， 当接收到该message时触发时流程进行 -->
+			<messageEventDefinition messageRef="messageStart" />
+		</intermediateCatchEvent>
+		<sequenceFlow id="flow2" sourceRef="message-received" targetRef="end" />
 
 		<endEvent id="end" />
 

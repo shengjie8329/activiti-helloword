@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <configuration debug="true">
+	<property name="mdc" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg ProcessDefinitionId=%X{mdcProcessDefinitionID}
+executionId=%X{mdcExecutionId} mdcProcessInstanceID=%X{mdcProcessInstanceID} mdcBusinessKey=%X{mdcBusinessKey} %logger{10}.%M:%L%n" />
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
+			<pattern>${mdc}</pattern>
+			<charset>UTF-8</charset>
+			<!--
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			-->
 		</encoder>
 	</appender>
 	<logger name="com.imooc" level="DEBUG"/>
-	<root level="ERROR">
+	<root level="INFO">
 		<appender-ref ref="stdout"/>
 	</root>
 </configuration>

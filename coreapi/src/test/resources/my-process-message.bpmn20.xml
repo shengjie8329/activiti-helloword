@@ -4,13 +4,18 @@
 	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
 	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
 	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-
+	<!-- 定义message -->
+	<message id="messageStart" name="my-message" />
 	<process id="my-process">
 
-		<startEvent id="start" />
+		<startEvent id="start" >
+			<!--在开始节点里定义接受消息事件 -->
+			<messageEventDefinition messageRef="messageStart" />
+		</startEvent>
 		<sequenceFlow id="flow1" sourceRef="start" targetRef="someTask" />
-		
+
 		<userTask id="someTask" name="Activiti is awesome!" />
+
 		<sequenceFlow id="flow2" sourceRef="someTask" targetRef="end" />
 
 		<endEvent id="end" />
